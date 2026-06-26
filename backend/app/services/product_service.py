@@ -9,7 +9,7 @@ def create_product(db: Session, product: ProductCreate) -> Product:
         sku=product.sku,
         name=product.name,
         quantity=product.quantity,
-        aisle=product.aise,
+        aisle=product.aisle,
         shelf=product.shelf,
     )
 
