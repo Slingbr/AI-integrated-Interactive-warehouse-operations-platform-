@@ -39,11 +39,8 @@ def update_product(
             detail="Product not found"
         )
 
-    existing_product.sku = product.sku
-    existing_product.name = product.name
-    existing_product.quantity = product.quantity
-    existing_product.aisle = product.aisle
-    existing_product.shelf = product.shelf
+    for key, value in product.model_dump().items():
+        setattr(existing_product, key, value)
 
     db.commit()
     db.refresh(existing_product)
