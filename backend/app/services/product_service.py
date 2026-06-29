@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+from fastapi import HTTPException
 from app.models.product import Product
 from app.schemas.product import ProductCreate
 
@@ -18,3 +18,34 @@ def create_product(db: Session, product: ProductCreate) -> Product:
     db.refresh(new_product)
 
     return new_product
+
+
+
+def update_product(
+    db: Session,
+    product_id: int,
+    product: ProductCreate
+) -> Product:
+
+    existing_product = (
+        db.query(Product)
+        .filter(Product.id == product_id)
+        .first()
+    )
+
+    if existing_product is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    existing_product.sku = product.sku
+    existing_product.name = product.name
+    existing_product.quantity = product.quantity
+    existing_product.aisle = product.aisle
+    existing_product.shelf = product.shelf
+
+    db.commit()
+    db.refresh(existing_product)
+
+    return existing_product
