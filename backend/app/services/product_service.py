@@ -46,3 +46,26 @@ def update_product(
     db.refresh(existing_product)
 
     return existing_product
+
+    
+def delete_product(
+    db: Session,
+    product_id: int,
+)  -> Product:
+    
+    existing_product = (
+        db.query(Product)
+        .filter(Product.id == product_id)
+        .first()
+    )
+
+    if existing_product is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+    
+    db.delete(existing_product)
+    db.commit()
+   
+        
