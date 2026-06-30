@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException,status
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
@@ -31,3 +31,16 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
         )
 
     return product
+
+
+
+
+@router.delete(
+    "/products/{product_id}",
+    status_code=status.HTTP_204_NO_CONTENT
+)
+def delete_product(
+    product_id: int,
+    db: Session = Depends(get_db)
+):
+    product_service.delete_product(db, product_id)
