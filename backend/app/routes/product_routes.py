@@ -33,8 +33,6 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
     return product
 
 
-
-
 @router.delete(
     "/products/{product_id}",
     status_code=status.HTTP_204_NO_CONTENT
