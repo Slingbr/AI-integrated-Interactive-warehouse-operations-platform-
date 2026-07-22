@@ -13,6 +13,7 @@ class Product(Base):
 
     quantity = Column(Integer, nullable=False)
 
-    aisle = Column(String, nullable=False)
-
-    shelf = Column(String, nullable=False)
+    location_id = Column(
+    Integer,
+    nullable=False
+)
