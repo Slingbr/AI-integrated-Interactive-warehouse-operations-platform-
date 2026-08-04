@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+
 from app.database.connection import Base
 
 
@@ -14,6 +16,12 @@ class Product(Base):
     quantity = Column(Integer, nullable=False)
 
     location_id = Column(
-    Integer,
-    nullable=False
-)
+        Integer,
+        ForeignKey("warehouse_locations.id"),
+        nullable=False
+    )
+
+    location = relationship(
+        "WarehouseLocation",
+        back_populates="products"
+    )

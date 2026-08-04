@@ -7,7 +7,7 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-print(f"Database URL: {DATABASE_URL}")
+
 
 engine = create_engine(DATABASE_URL)
 
@@ -19,5 +19,3 @@ SessionLocal = sessionmaker(
 
 Base = declarative_base()
 
-with engine.connect() as connection:
-    print("Database connection successful!")
