@@ -2,9 +2,13 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from app.models.product import Product
 from app.schemas.product import ProductCreate
+from sqlalchemy.exc import IntegrityError
 
+def create_product(
+    db: Session,
+    product: ProductCreate
+) -> Product:
 
-def create_product(db: Session, product: ProductCreate) -> Product:
     new_product = Product(
         sku=product.sku,
         name=product.name,
@@ -13,8 +17,18 @@ def create_product(db: Session, product: ProductCreate) -> Product:
     )
 
     db.add(new_product)
-    db.commit()
-    db.refresh(new_product)
+
+    try:
+        db.commit()
+        db.refresh(new_product)
+
+    except IntegrityError:
+        db.rollback()
+
+        raise HTTPException(
+            status_code=400,
+            detail="Warehouse location does not exist"
+        )
 
     return new_product
 
