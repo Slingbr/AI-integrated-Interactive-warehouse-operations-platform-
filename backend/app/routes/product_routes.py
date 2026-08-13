@@ -32,6 +32,18 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 
     return product
 
+@router.put("/products/{product_id}", response_model=ProductResponse)
+def update_product(
+    product_id: int,
+    product: ProductCreate,
+    db: Session = Depends(get_db)
+):
+    return product_service.update_product(
+        db,
+        product_id,
+        product
+    )
+
 
 @router.delete(
     "/products/{product_id}",

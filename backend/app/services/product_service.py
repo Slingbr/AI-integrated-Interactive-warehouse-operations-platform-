@@ -55,8 +55,17 @@ def update_product(
     for key, value in product.model_dump().items():
         setattr(existing_product, key, value)
 
-    db.commit()
-    db.refresh(existing_product)
+    try:
+        db.commit()
+        db.refresh(existing_product)
+
+    except IntegrityError:
+        db.rollback()
+
+        raise HTTPException(
+            status_code=400,
+            detail="Warehouse location does not exist"
+        )
 
     return existing_product
 
