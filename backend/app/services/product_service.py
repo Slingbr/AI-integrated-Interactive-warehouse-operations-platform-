@@ -9,8 +9,7 @@ def create_product(db: Session, product: ProductCreate) -> Product:
         sku=product.sku,
         name=product.name,
         quantity=product.quantity,
-        aisle=product.aisle,
-        shelf=product.shelf,
+        location_id=product.location_id
     )
 
     db.add(new_product)
