@@ -34,7 +34,7 @@ load_dotenv(BACKEND_DIR / ".env")
 from app.database.connection import Base, DATABASE_URL
 from app.models.product import Product
 from app.models.warehouse_location import WarehouseLocation
-
+from app.models.worker import Worker
 
 # ---------------------------------------------------------
 # Alembic configuration
