@@ -12,7 +12,7 @@ app = FastAPI()
 app.include_router(product_router)
 app.include_router(worker_router)
 app.include_router(order_router)
-
+app.include_router(order_item_router)
 @app.get("/")
 def root():
     return {"message": "AI Warehouse System API Running"}
