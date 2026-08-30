@@ -5,6 +5,8 @@ from app.routes.worker_routes import router as worker_router
 from app.routes.order_routes import router as order_router
 from app.models.order import Order
 from app.models.order_item import OrderItem
+from app.routes.order_item_routes import router as order_item_router
+
 app = FastAPI()
 
 app.include_router(product_router)
