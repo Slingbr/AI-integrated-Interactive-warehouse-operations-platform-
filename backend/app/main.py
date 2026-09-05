@@ -6,6 +6,7 @@ from app.routes.order_routes import router as order_router
 from app.models.order import Order
 from app.models.order_item import OrderItem
 from app.routes.order_item_routes import router as order_item_router
+from app.routes import picking_routes
 
 app = FastAPI()
 
@@ -13,6 +14,7 @@ app.include_router(product_router)
 app.include_router(worker_router)
 app.include_router(order_router)
 app.include_router(order_item_router)
+app.include_router(picking_routes.router)
 @app.get("/")
 def root():
     return {"message": "AI Warehouse System API Running"}
