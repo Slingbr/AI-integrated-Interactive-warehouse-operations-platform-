@@ -21,6 +21,5 @@ def pick_order_item(
     return picking_service.pick_order_item(
         db,
         order_item_id,
-        pick_request.worker_id,
         pick_request.quantity
     )
